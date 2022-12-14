@@ -9,7 +9,7 @@
       <input type="password" name="password" required v-model="password">
     </div>
     <div class="container">
-      <button @click="LogIn"  class="center">Login</button>
+      <button @click="LogIn" class="center">Login</button>
       <button @click='this.$router.push("/signup")' class="center">Sign up</button>
     </div>
   </div>

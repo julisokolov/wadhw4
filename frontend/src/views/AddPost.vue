@@ -4,51 +4,51 @@
       <p class="center">Add post:</p>
     </div>
     <div class="container">
-      <label for="post">Body:</label>
-      <input type="text" name="post">
+      <label for="content">Body:</label>
+      <input name="content"  required v-model="content">
     </div>
-    <div class="container">
-        <button @click="AddPost"  class="center">Add</button>
-    </div>
+    <button @click="AddPost" class="center">Add</button>
   </div>
 </template>
 
 <script>
 export default {
-    name: "AddPost", 
-    data: function() {
-        return {
-            post: '',
-        }
-    },
-    methods: {
-        AddPost() {
-            var data = {
-                post: this.post,
-            };
+name: "AddPost", 
 
-            fetch("http://localhost:3000/api/posts", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: 'include', //  Don't forget to specify this if you need cookies
-                body: JSON.stringify(data),
-                })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data);
-                    //this.$router.push("/");
-                    location.assign("/");
-                })
-                .catch((e) => {
-                    console.log(e);
-                    console.log("error");
-                });
-            },
-    }, 
+data: function() {
+    return {
+   content: '',
   }
+  },
+  methods: {
 
+
+AddPost() {
+      var data = {
+        content: this.content,
+      };
+      // using Fetch - post method - send an HTTP post request to the specified URI with the defined body
+      fetch("http://localhost:3000/api/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+          credentials: 'include', //  Don't forget to specify this if you need cookies
+          body: JSON.stringify(data),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+      console.log(data);
+      //this.$router.push("/");
+      location.assign("/");
+      })
+      .catch((e) => {
+        console.log(e);
+        console.log("error");
+      });
+    },
+  }, 
+  }
 </script>
 
 <style scoped>
