@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import SignUp from "../views/SignUp.vue";
 import LogIn from "../views/LogIn.vue";
 import auth from "../auth";
+import AddPost from "../views/AddPost.vue";
 
 
 
@@ -29,6 +30,19 @@ const routes = [{
         path: "/login",
         name: "LogIn",
         component: LogIn,
+    },
+    {
+        path: "/addpost",
+        name: "AddPost",
+        component: AddPost,
+        beforeEnter: async(to, from, next) => {
+            let authResult = await auth.authenticated();
+            if (!authResult) {
+                next('/login')
+            } else {
+                next();
+            }
+        }
     },
     {
         path: "/about",

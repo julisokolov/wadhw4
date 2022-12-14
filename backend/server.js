@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:8081', credentials: true }));
+app.use(cors({ origin: 'http://localhost:8080', credentials: true }));
 // We need to include "credentials: true" to allow cookies to be represented  
 // Also "credentials: 'include'" need to be added in Fetch API in the Vue.js App
 
@@ -133,6 +133,19 @@ app.get('/api/posts', async(req, res) => {
             "SELECT * FROM posts"
         );
         res.json(posts.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+app.post('/api/posts/', async(req, res) => {
+    try {
+        console.log("a post request has arrived");
+        const post = req.body;
+        const newpost = await pool.query(
+            "INSERT INTO posts(body) VALUES ($1)   RETURNING*", [post.body]
+        );
+        res.json(newpost);
     } catch (err) {
         console.error(err.message);
     }
