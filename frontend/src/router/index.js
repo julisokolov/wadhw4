@@ -46,7 +46,7 @@ const routes = [{
         }
     },
     {
-        path: "/post/:id",
+        path: "/posts/:id",
         name: "APost",
         component: APost,
         beforeEnter: async(to, from, next) => {

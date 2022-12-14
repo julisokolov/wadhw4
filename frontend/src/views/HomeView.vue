@@ -16,10 +16,10 @@ export default {
   name: "HomeView",
   components: {
   },
-   data: function() {
+  data: function() {
     return {
-    posts:[ ],
-    authResult: auth.authenticated()
+      posts:[ ],
+      authResult: auth.authenticated()
     }
   },
   methods: {

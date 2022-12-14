@@ -13,17 +13,10 @@
 
 <script>
 export default {
-name: "AddPost", 
-
-data: function() {
-    return {
-   content: '',
-  }
-  },
+  name: "AddPost", 
+  data: function() {return {content: ''}},
   methods: {
-
-
-AddPost() {
+    AddPost() {
       var data = {
         content: this.content,
       };
@@ -48,7 +41,7 @@ AddPost() {
       });
     },
   }, 
-  }
+}
 </script>
 
 <style scoped>
