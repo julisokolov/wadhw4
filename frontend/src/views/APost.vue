@@ -49,8 +49,7 @@ export default {
         },
         body: JSON.stringify(this.post),
       })
-        .then((response) => {
-          console.log(response.data);
+        .then(() => {
           //this.$router.push("/apost/" + this.post.id);
           // We are using the router instance of this element to navigate to a different URL location
           this.$router.push("/");

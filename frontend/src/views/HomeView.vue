@@ -1,9 +1,9 @@
 <template>
   <main>
-    <button v-if = "authResult" @click="Logout" class="center">Logout</button>
+    <button v-if = "authResult" @click="Logout">Logout</button>
     <article v-for="post in posts" :key="post.id"  @click="Click(post.id)">
       <div style="text-align: right">{{post.datetime.substring(0, 16)}}</div>
-      <div className="postText">{{post.body}}</div>
+      <div class="postText">{{post.body}}</div>
     </article>
     <div class="container">
       <button @click='this.$router.push("/addpost")'>Add post</button>
@@ -22,7 +22,7 @@ export default {
   },
   data: function() {
     return {
-      posts:[ ],
+      posts:[],
       authResult: auth.authenticated()
     }
   },
@@ -34,7 +34,7 @@ export default {
     Deleteall(){
       fetch('http://localhost:3000/api/posts',{method: "DELETE"})
       .then((response) => response.json())
-      .then(data => this.posts = data)
+      .then(() => this.posts = [])
       .catch(err => console.log(err.message))
     },
 
@@ -91,6 +91,11 @@ button {
   text-decoration: none;
   font-size: 16px;
 }
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+}
 .postText {
   text-align: left;
   margin-top: 1em;
@@ -100,8 +105,8 @@ button {
 	article {
 		width: 95%;
 	}
-	footer {
-		display: none;
+  .container {
+		width: 95%;
 	}
 }
 </style>
