@@ -1,40 +1,27 @@
 <template>
   <div class="form">
     <div class="container">
-      <label for="email">Email:</label>
-      <input type="email" name="email"  required v-model="email">
+      <p class="center">Add post:</p>
     </div>
     <div class="container">
-      <label for="password">Password:</label>
-      <input type="password" name="password" required v-model="password">
+      <label for="content">Body:</label>
+      <input name="content"  required v-model="content">
     </div>
-    <div class="container">
-      <button @click="LogIn" class="center">Login</button>
-      <button @click='this.$router.push("/signup")' class="center">Sign up</button>
-    </div>
+    <button @click="AddPost" class="center">Add</button>
   </div>
 </template>
 
 <script>
 export default {
-name: "LogIn", 
-
-data: function() {
-    return {
-   email: '',
-   password: '',
-  }
-  },
+  name: "AddPost", 
+  data: function() {return {content: ''}},
   methods: {
-
-
-LogIn() {
+    AddPost() {
       var data = {
-        email: this.email,
-        password: this.password
+        content: this.content,
       };
       // using Fetch - post method - send an HTTP post request to the specified URI with the defined body
-      fetch("http://localhost:3000/auth/login", {
+      fetch("http://localhost:3000/api/posts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,8 +41,7 @@ LogIn() {
       });
     },
   }, 
-  }
-
+}
 </script>
 
 <style scoped>
@@ -67,6 +53,15 @@ LogIn() {
   margin-top: 100px;
   border-radius: 20px;
   color: #2c3e50;
+}
+p{
+  color: rgb(8, 110, 110);
+  display: inline-block;
+  margin: 25px 0 15px;
+  font-size: 1em;
+  font-weight: bold;
+  width: 35%;
+  text-align: center;
 }
 label {
   color: rgb(8, 110, 110);

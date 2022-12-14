@@ -1,10 +1,14 @@
 <template>
   <main>
-    <button v-if = "authResult" @click="Logout" class="center">Logout</button>
-    <article v-for="post in posts" :key="post.id">
+    <button v-if = "authResult" @click="Logout">Logout</button>
+    <article v-for="post in posts" :key="post.id"  @click="Click(post.id)">
       <div style="text-align: right">{{post.datetime.substring(0, 16)}}</div>
-      <div className="postText">{{post.body}}</div>
+      <div class="postText">{{post.body}}</div>
     </article>
+    <div class="container">
+      <button @click='this.$router.push("/addpost")'>Add post</button>
+      <button @click="Deleteall">Delete all</button>
+    </div>
   </main>
 </template>
 
@@ -16,13 +20,24 @@ export default {
   name: "HomeView",
   components: {
   },
-   data: function() {
+  data: function() {
     return {
-    posts:[ ],
-    authResult: auth.authenticated()
+      posts:[],
+      authResult: auth.authenticated()
     }
   },
   methods: {
+    Click (id){
+      this.$router.push(`/posts/${id}`);
+    },
+
+    Deleteall(){
+      fetch('http://localhost:3000/api/posts',{method: "DELETE"})
+      .then((response) => response.json())
+      .then(() => this.posts = [])
+      .catch(err => console.log(err.message))
+    },
+
     Logout() {
       fetch("http://localhost:3000/auth/logout", {
           credentials: 'include', //  Don't forget to specify this if you need cookies
@@ -76,6 +91,11 @@ button {
   text-decoration: none;
   font-size: 16px;
 }
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+}
 .postText {
   text-align: left;
   margin-top: 1em;
@@ -85,8 +105,8 @@ button {
 	article {
 		width: 95%;
 	}
-	footer {
-		display: none;
+  .container {
+		width: 95%;
 	}
 }
 </style>
